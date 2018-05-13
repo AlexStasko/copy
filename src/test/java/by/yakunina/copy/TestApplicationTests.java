@@ -1,4 +1,4 @@
-package by.yakunina.test;
+package by.yakunina.copy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
