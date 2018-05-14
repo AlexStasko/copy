@@ -9,7 +9,12 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("title", "Log In");
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    public String returnError(Model model) {
+        model.addAttribute("loginError", true);
         return "login";
     }
 }
