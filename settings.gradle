@@ -1,4 +1,4 @@
 rootProject.name = 'copycenter'
 
 include 'db'
-include 'copy'
+include 'app'
