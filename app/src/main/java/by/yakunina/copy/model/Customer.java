@@ -2,6 +2,9 @@ package by.yakunina.copy.model;
 
 import by.yakunina.copy.model.support.Entity;
 
+/**
+ * Customer entity.
+ */
 public class Customer extends Entity {
 
     private final String name;
@@ -41,7 +44,7 @@ public class Customer extends Entity {
         return phoneNumber;
     }
 
-    public class CustomerBuilder {
+    public static class CustomerBuilder {
         private int id;
         private String name;
         private String lastName;
