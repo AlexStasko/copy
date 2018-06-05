@@ -15,8 +15,9 @@ import java.io.Serializable;
 public class Role implements Identifiable, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final EntityId id;
-    private final String name;
+
+    private EntityId id;
+    private String name;
 
     public Role() {
         this.id = null;
@@ -33,8 +34,16 @@ public class Role implements Identifiable, Serializable {
         return id;
     }
 
+    public void setId(EntityId id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
