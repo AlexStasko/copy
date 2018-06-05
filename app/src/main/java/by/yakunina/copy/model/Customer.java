@@ -1,31 +1,30 @@
 package by.yakunina.copy.model;
 
-import by.yakunina.copy.model.support.Entity;
+import by.yakunina.copy.model.support.EntityId;
+import by.yakunina.copy.model.support.Identifiable;
 
 /**
  * Customer entity.
  */
-public class Customer extends Entity {
+public class Customer implements Identifiable {
 
+    private final EntityId id;
     private final String name;
     private final String lastName;
     private final String address;
     private final String phoneNumber;
 
-    private Customer() {
-        super(-1);
-        this.name = null;
-        this.lastName = null;
-        this.address = null;
-        this.phoneNumber = null;
-    }
-
     private Customer(CustomerBuilder builder) {
-        super(builder.id);
+        this.id = builder.id;
         this.name = builder.name;
         this.lastName = builder.lastName;
         this.address = builder.address;
         this.phoneNumber = builder.phoneNumber;
+    }
+
+    @Override
+    public EntityId getId() {
+        return id;
     }
 
     public String getName() {
@@ -45,13 +44,13 @@ public class Customer extends Entity {
     }
 
     public static class CustomerBuilder {
-        private int id;
+        private EntityId id;
         private String name;
         private String lastName;
         private String address;
         private String phoneNumber;
 
-        public CustomerBuilder withId(int pId) {
+        public CustomerBuilder withId(EntityId pId) {
             this.id = pId;
             return this;
         }

@@ -1,5 +1,7 @@
 package by.yakunina.copy.model.auth;
 
+import by.yakunina.copy.model.support.EntityId;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +13,12 @@ public class CopyUser extends User implements UserDetails {
 
     private static final long serialVersionUID = -1L;
 
-    private final int id;
+    private final String id;
 
 
     public CopyUser() {
         super("N/A", "N/A", Collections.emptyList());
-        this.id = -1;
+        this.id = null;
     }
 
     public CopyUser(CopyUserBuilder builder) {
@@ -56,7 +58,7 @@ public class CopyUser extends User implements UserDetails {
 
     public static final class CopyUserBuilder {
 
-        private int id;
+        private String id;
         private String username;
         private String password;
         private boolean enabled = true;
@@ -71,7 +73,7 @@ public class CopyUser extends User implements UserDetails {
          * @param pId id of user.
          * @return this builder.
          */
-        public CopyUserBuilder withId(int pId) {
+        public CopyUserBuilder withId(String pId) {
             this.id = pId;
             return this;
         }

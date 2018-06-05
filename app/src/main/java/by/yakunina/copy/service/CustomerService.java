@@ -1,22 +1,23 @@
 package by.yakunina.copy.service;
 
 import by.yakunina.copy.model.Customer;
+import by.yakunina.copy.model.support.EntityId;
 
 public class CustomerService {
 
-    public int createCustomer(Customer customer) {
-        return -1;
+    public EntityId createCustomer(Customer customer) {
+        return new EntityId("1");
     }
 
     public Customer updateCustomer(Customer customer) {
         return customer;
     }
 
-    public void deleteCustomer(int id) {
+    public void deleteCustomer(EntityId id) {
 
     }
 
-    public Customer findCustomer(int id) {
+    public Customer findCustomer(EntityId id) {
         return new Customer.CustomerBuilder()
                 .build();
     }
