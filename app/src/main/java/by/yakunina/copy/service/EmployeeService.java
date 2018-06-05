@@ -1,6 +1,7 @@
 package by.yakunina.copy.service;
 
 import by.yakunina.copy.model.Employee;
+import by.yakunina.copy.model.support.EntityId;
 
 public class EmployeeService {
 
@@ -8,7 +9,7 @@ public class EmployeeService {
         return -1;
     }
 
-    public Employee findEmployee(int id) {
+    public Employee findEmployee(EntityId id) {
         return new Employee.EmployeeBuilder()
                 .build();
     }
@@ -17,7 +18,7 @@ public class EmployeeService {
 
     }
 
-    public void deleteEmployee(int id) {
+    public void deleteEmployee(EntityId id) {
         
     }
 }

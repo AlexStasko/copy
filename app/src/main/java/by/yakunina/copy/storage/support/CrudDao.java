@@ -1,12 +1,14 @@
 package by.yakunina.copy.storage.support;
 
+import by.yakunina.copy.model.support.EntityId;
+
 public interface CrudDao<T> {
 
-    int create(T entity);
+    EntityId create(T entity);
 
-    T read(int id);
+    T read(EntityId id);
 
     void update(T entity);
 
-    void delete(int id);
+    void delete(EntityId id);
 }

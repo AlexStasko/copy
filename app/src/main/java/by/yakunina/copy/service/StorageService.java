@@ -1,6 +1,7 @@
 package by.yakunina.copy.service;
 
 import by.yakunina.copy.model.FileEntity;
+import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.storage.dao.FileDao;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -17,14 +18,14 @@ public class StorageService {
     @javax.annotation.Resource
     private FileDao fileDao;
 
-    public int store(MultipartFile file) {
+    public EntityId store(MultipartFile file) {
         try {
-            FileEntity fileEntity = new FileEntity(1, "file1", file.getBytes());
+            FileEntity fileEntity = new FileEntity(new EntityId("1"), "file1", file.getBytes());
             return fileDao.create(fileEntity);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
     public List<String> loadAll() {

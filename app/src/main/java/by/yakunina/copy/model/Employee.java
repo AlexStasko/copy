@@ -1,36 +1,48 @@
 package by.yakunina.copy.model;
 
-import by.yakunina.copy.model.support.Entity;
+import by.yakunina.copy.model.support.EntityId;
+import by.yakunina.copy.model.support.Identifiable;
 import org.apache.commons.lang3.builder.Builder;
 
-public class Employee extends Entity {
+public class Employee implements Identifiable {
 
+    private final EntityId id;
     private final String name;
     private final String lastName;
     private final String title;
 
-    private Employee() {
-        super(-1);
-        this.name = null;
-        this.lastName = null;
-        this.title = null;
-    }
-
     private Employee(EmployeeBuilder builder) {
-        super(builder.id);
+        this.id = builder.id;
         this.name = builder.name;
         this.lastName = builder.lastName;
         this.title = builder.title;
     }
 
+    @Override
+    public EntityId getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     public static class EmployeeBuilder implements Builder<Employee> {
 
-        private int id;
+        private EntityId id;
         private String name;
         private String lastName;
         private String title;
 
-        public EmployeeBuilder withId(int pId) {
+        public EmployeeBuilder withId(EntityId pId) {
             this.id = pId;
             return this;
         }

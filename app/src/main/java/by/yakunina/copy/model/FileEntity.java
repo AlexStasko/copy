@@ -1,16 +1,25 @@
 package by.yakunina.copy.model;
 
-import by.yakunina.copy.model.support.Entity;
+import by.yakunina.copy.model.support.EntityId;
+import by.yakunina.copy.model.support.Identifiable;
+import org.apache.ibatis.type.Alias;
 
-public class FileEntity extends Entity {
+@Alias("FileEntity")
+public class FileEntity implements Identifiable {
 
+    private final EntityId id;
     private final String name;
     private final byte[] data;
 
-    public FileEntity(int id, String name, byte[] data) {
-        super(id);
+    public FileEntity(EntityId id, String name, byte[] data) {
+        this.id = id;
         this.name = name;
         this.data = data;
+    }
+
+    @Override
+    public EntityId getId() {
+        return id;
     }
 
     public String getName() {

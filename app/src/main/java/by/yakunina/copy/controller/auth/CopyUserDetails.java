@@ -27,7 +27,7 @@ public class CopyUserDetails implements UserDetailsService {
 
     private CopyUser buildUser(Account account) {
         return new CopyUser.CopyUserBuilder()
-                .withId(account.getId())
+                .withId(account.getId().getId())
                 .withUsername(account.getUsername())
                 .withPassword(account.getPassword())
                 .withAuthorities(Optional.ofNullable(account.getRoles())

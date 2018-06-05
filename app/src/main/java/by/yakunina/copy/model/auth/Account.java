@@ -1,42 +1,131 @@
 package by.yakunina.copy.model.auth;
 
-import by.yakunina.copy.model.support.Entity;
+import by.yakunina.copy.model.support.EntityId;
+import by.yakunina.copy.model.support.Identifiable;
+import org.apache.commons.lang3.builder.Builder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Account entity
  */
-public class Account extends Entity{
+@Alias("Account")
+public class Account implements Identifiable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final int userId;
-    private final String username;
-    private final String password;
-    private final List<Role> roles;
+    private EntityId id;
+    private EntityId userId;
+    private String username;
+    private String password;
+    private List<Role> roles;
 
-	public Account(int id, String username, String password, int userId, List<Role> roles) {
-        super(id);
-        this.userId = userId;
-        this.roles = roles;
-        this.username = username;
-        this.password = password;
+    public Account() {
+        this.id = null;
+        this.userId = null;
+        this.username = null;
+        this.password = null;
+        this.roles = null;
     }
 
-    public int getUserId() {
+    public Account(AccountBuilder builder) {
+        this.id = builder.id;
+        this.userId = builder.userId;
+        this.roles = builder.roles;
+        this.username = builder.username;
+        this.password = builder.password;
+    }
+
+    @Override
+    public EntityId getId() {
+        return id;
+    }
+
+    public void setId(EntityId id) {
+        this.id = id;
+    }
+
+    public EntityId getUserId() {
         return userId;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public void setUserId(EntityId userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("id", id)
+                .append("userId", userId)
+                .append("username", username)
+                .append("password", password)
+                .append("roles", roles)
+                .toString();
+    }
+
+    public static final class AccountBuilder implements Builder<Account> {
+        private EntityId id;
+        private EntityId userId;
+        private String username;
+        private String password;
+        private List<Role> roles;
+
+        public AccountBuilder withId(EntityId id) {
+            this.id = id;
+            return this;
+        }
+
+        public AccountBuilder withUserId(EntityId userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public AccountBuilder withUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public AccountBuilder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public AccountBuilder withRoles(List<Role> roles) {
+            this.roles = roles;
+            return this;
+        }
+
+        public Account build() {
+            return new Account(this);
+        }
     }
 }

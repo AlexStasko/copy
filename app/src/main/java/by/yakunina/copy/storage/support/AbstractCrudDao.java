@@ -1,13 +1,15 @@
 package by.yakunina.copy.storage.support;
 
+import by.yakunina.copy.model.support.EntityId;
+
 public abstract class AbstractCrudDao<T> implements CrudDao<T> {
     @Override
-    public int create(T entity) {
+    public EntityId create(T entity) {
         return getMapper().create(entity);
     }
 
     @Override
-    public T read(int id) {
+    public T read(EntityId id) {
         return getMapper().read(id);
     }
 
@@ -17,7 +19,7 @@ public abstract class AbstractCrudDao<T> implements CrudDao<T> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(EntityId id) {
         getMapper().delete(id);
     }
 
