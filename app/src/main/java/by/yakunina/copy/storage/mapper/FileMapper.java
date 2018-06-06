@@ -3,10 +3,11 @@ package by.yakunina.copy.storage.mapper;
 import by.yakunina.copy.model.FileEntity;
 import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.storage.support.CrudMapper;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import by.yakunina.copy.storage.support.EntityIdTypeHandler;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+
+import java.util.List;
 
 @Mapper
 public interface FileMapper extends CrudMapper<FileEntity> {
@@ -18,7 +19,7 @@ public interface FileMapper extends CrudMapper<FileEntity> {
     EntityId create(FileEntity entity);
 
     @Override
-    @Select(" SELECT id, name, data FROM copy.file" +
+    @Select("SELECT id, name, data FROM copy.file" +
             " WHERE id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
     FileEntity read(EntityId id);
 
@@ -30,4 +31,13 @@ public interface FileMapper extends CrudMapper<FileEntity> {
     @Override
     @Delete("DELETE FROM copy.file WHERE id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
     void delete(EntityId id);
+
+    @Select("SELECT name FROM copy.file")
+    List<String> readAll();
+
+    @Results(value = {
+            @Result(column = "data", jdbcType = JdbcType.BINARY)
+    })
+    @Select("SELECT data FROM copy.file WHERE name = #{name}")
+    byte[] readData(String name);
 }

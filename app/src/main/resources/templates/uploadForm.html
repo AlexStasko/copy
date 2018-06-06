@@ -1,4 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: header(~{::title},~{::link})">
+    <title>Upload file</title>
+    <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
+</head>
 <body>
 
 <div th:if="${message}">
@@ -17,10 +22,11 @@
 <div>
     <ul>
         <li th:each="file : ${files}">
-            <h3 th:text="${file}" />
+            <a th:href="${file}" th:text="${file}" />
         </li>
     </ul>
 </div>
 
+<div th:replace="common::bootstrap"></div>
 </body>
 </html>
