@@ -1,38 +1,33 @@
 package by.yakunina.copy.model;
 
 import by.yakunina.copy.model.support.EntityId;
-import by.yakunina.copy.model.support.Identifiable;
 import org.apache.commons.lang3.builder.Builder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Employee implements Identifiable {
+public class Employee extends User {
 
-    private final EntityId id;
-    private final String name;
-    private final String lastName;
-    private final String title;
+    private String title;
 
     private Employee(EmployeeBuilder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.lastName = builder.lastName;
+        super(builder.id, builder.name, builder.lastName);
         this.title = builder.title;
-    }
-
-    @Override
-    public EntityId getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .appendSuper(super.toString())
+                .append("title", title)
+                .toString();
     }
 
     public static class EmployeeBuilder implements Builder<Employee> {

@@ -10,16 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
             .authorizeRequests()
 //                .antMatchers("/**").permitAll();
                 .antMatchers("/css/**", "/js/**","/index", "/upload", "/role", "/account", "/files").permitAll()
@@ -27,7 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .loginPage("/login")
-                .failureUrl("/login-error");
+                .failureUrl("/login-error")
+            .and()
+            .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.util.List;
 public class AccountService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class);
-    private static final String USER_ROLE_NAME = "USER";
+    private static final String USER_ROLE_NAME = "ROLE_USER";
 
     @Resource
     private AccountDao accountDao;

@@ -1,20 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{})">
-    <title>Copy Centre Index</title>
+    <title>Copy Center Index</title>
 </head>
-<body>
-<div class="container">
-    <h1>Hello in copy center!</h1>
-    <ul>
-        <li><a href="/account" th:href="@{/account}">Sign up</a></li>
-        <li><a href="/login" th:href="@{/login}">Sign in</a></li>
-        <li><a href="/files" th:href="@{/files}">Files</a></li>
-    </ul>
+<body th:replace="common :: bootstrap(~{::div})">
 
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
+
+    <div th:replace="header-component :: header"/>
+
+    <main th:class="container">
+
+        <h1>Welcome to our copy center!</h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra justo ac eros porta, vitae mattis nisi suscipit. Nunc posuere sagittis consectetur. Integer efficitur augue orci, non luctus tellus fringilla quis. Vestibulum quis feugiat urna. Duis lobortis urna sapien. Vivamus nec venenatis augue, eu convallis arcu. Suspendisse pretium diam non placerat semper. Pellentesque pulvinar leo quis urna vestibulum, sed tempus dui dictum. In hac habitasse platea dictumst.</p>
+        <p>Mauris a facilisis felis. Ut ut bibendum tortor. Sed nisl mi, iaculis interdum enim eu, ullamcorper lacinia justo. Suspendisse pulvinar metus est, non ullamcorper tortor maximus sed. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus rutrum velit vel quam consectetur, nec iaculis velit sollicitudin. Donec mattis commodo interdum. Nulla ut quam at lacus maximus pretium pretium id nunc. Aliquam pellentesque eros at dictum cursus. Nulla eget quam eget metus rutrum efficitur ac ut metus. Etiam tincidunt purus at elit consectetur finibus. Maecenas pellentesque elementum pharetra. Aliquam gravida est eu ipsum semper, ac mollis nisi malesuada.</p>
+        <p>Vivamus faucibus purus nec urna cursus, a finibus quam malesuada. In convallis rutrum vestibulum. Aliquam turpis quam, imperdiet quis mollis eu, sodales id ante. In dictum viverra nibh ut aliquam. Sed nulla ipsum, efficitur non rhoncus ac, porta ut sem. Sed malesuada odio nec aliquam vulputate. Donec vel aliquet massa. Nullam ac accumsan tellus. Donec fermentum diam nulla, et vehicula ex venenatis at. Pellentesque mollis elit sapien, eu laoreet orci sollicitudin at. Suspendisse eu accumsan risus.</p>
+        <p>Pellentesque congue ipsum ac neque gravida, id volutpat nibh luctus. Pellentesque sit amet tristique ipsum. Nullam sem urna, porta quis interdum eu, elementum et massa. Nulla pellentesque est quis tincidunt luctus. Fusce viverra felis sed varius tempor. Nulla mollis ipsum ac aliquam vestibulum. In sed mattis nisl. Proin libero lectus, sodales vel aliquet non, placerat at est. Cras sed metus nunc. Aenean efficitur, lacus non egestas maximus, justo elit consequat justo, in aliquam ligula sapien a metus. Phasellus turpis dui, eleifend ut congue non, dignissim at lectus.</p>
+        <p>Nulla at dui magna. Suspendisse eu orci et leo vulputate finibus facilisis ac velit. Donec viverra ultrices commodo. Quisque ac cursus turpis. Integer orci est, vulputate nec neque et, aliquam commodo eros. Aliquam maximus quam et vestibulum luctus. Aliquam quam erat, suscipit vel sem rutrum, pretium placerat libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis orci diam, dictum et velit id, semper porttitor metus. Donec in lorem ut massa porta pellentesque. Nam suscipit pellentesque nulla, sit amet facilisis dolor dapibus vel. Donec at arcu at velit sodales luctus. Quisque quis porta sem. Aliquam erat volutpat. Fusce quam velit, consequat sed cursus id, consectetur ac orci. Phasellus suscipit vel leo ac tincidunt.</p>
+
+        <ul>
+            <li><a href="/account" th:href="@{/account}">Sign up</a></li>
+            <li><a href="/login" th:href="@{/login}">Sign in</a></li>
+            <li><a href="/files" th:href="@{/files}">Files</a></li>
+        </ul>
+
+    </main>
+
+    <div th:replace="footer-component :: footer"/>
 </div>
-
-<div th:replace="common :: bootstrap"></div>
-
 </body>
 </html>

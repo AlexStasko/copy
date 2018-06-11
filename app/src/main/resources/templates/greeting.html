@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="header :: header"></head>
+<head th:replace="header :: header(~{},~{})"></head>
 <body>
 <p th:text="'Hello, ' + ${name} + '!'"></p>
 </body>
 
-<div th:replace="common :: bootstrap"></div>
+
 </html>

@@ -1,5 +1,6 @@
 package by.yakunina.copy.model.auth;
 
+import by.yakunina.copy.model.User;
 import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.model.support.Identifiable;
 import org.apache.commons.lang3.builder.Builder;
@@ -19,14 +20,14 @@ public class Account implements Identifiable, Serializable {
     private static final long serialVersionUID = 1L;
 
     private EntityId id;
-    private EntityId userId;
+    private User user;
     private String username;
     private String password;
     private List<Role> roles;
 
     public Account() {
         this.id = null;
-        this.userId = null;
+        this.user = null;
         this.username = null;
         this.password = null;
         this.roles = null;
@@ -34,7 +35,7 @@ public class Account implements Identifiable, Serializable {
 
     public Account(AccountBuilder builder) {
         this.id = builder.id;
-        this.userId = builder.userId;
+        this.user = builder.user;
         this.roles = builder.roles;
         this.username = builder.username;
         this.password = builder.password;
@@ -49,12 +50,12 @@ public class Account implements Identifiable, Serializable {
         this.id = id;
     }
 
-    public EntityId getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(EntityId userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getUsername() {
@@ -85,7 +86,7 @@ public class Account implements Identifiable, Serializable {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
-                .append("userId", userId)
+                .append("user", user)
                 .append("username", username)
                 .append("password", password)
                 .append("roles", roles)
@@ -94,7 +95,7 @@ public class Account implements Identifiable, Serializable {
 
     public static final class AccountBuilder implements Builder<Account> {
         private EntityId id;
-        private EntityId userId;
+        private User user;
         private String username;
         private String password;
         private List<Role> roles;
@@ -104,8 +105,8 @@ public class Account implements Identifiable, Serializable {
             return this;
         }
 
-        public AccountBuilder withUserId(EntityId userId) {
-            this.userId = userId;
+        public AccountBuilder withUserId(User user) {
+            this.user = user;
             return this;
         }
 
