@@ -1,7 +1,5 @@
 package by.yakunina.copy.model.auth;
 
-import by.yakunina.copy.model.support.EntityId;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,38 +20,13 @@ public class CopyUser extends User implements UserDetails {
     }
 
     public CopyUser(CopyUserBuilder builder) {
-        super(builder.username, builder.password, builder.authorities);
+        super(builder.username, builder.password, builder.enabled, builder.accountNonExpired,
+                builder.credentialsNonExpired, builder.accountNonLocked, builder.authorities);
         this.id = builder.id;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public String getId() {
+        return id;
     }
 
     public static final class CopyUserBuilder {

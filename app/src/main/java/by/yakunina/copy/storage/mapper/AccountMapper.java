@@ -3,6 +3,7 @@ package by.yakunina.copy.storage.mapper;
 import by.yakunina.copy.model.auth.Account;
 import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.storage.support.CrudMapper;
+import by.yakunina.copy.storage.support.EntityIdTypeHandler;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -31,7 +32,9 @@ public interface AccountMapper extends CrudMapper<Account> {
             " WHERE id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
     void delete(EntityId id);
 
-    @Select("SELECT acc.id, acc.username, acc.password, roles.name, roles.id" +
+    @ResultMap("AccountResultMap")
+
+    @Select("SELECT acc.id as account_id, acc.username, acc.password, roles.name, roles.id as role_id" +
             " FROM copy.account acc" +
             " LEFT JOIN copy.role_account_map ram ON ram.account_id = acc.id" +
             " LEFT JOIN copy.role roles ON roles.id = ram.role_id" +

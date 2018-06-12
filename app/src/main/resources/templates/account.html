@@ -5,20 +5,27 @@
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
-<body class="text-center">
+<body th:replace="common::bootstrap(~{::div})">
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
 
-<form class="form-signin" th:action="@{/account}" th:object="${account}" th:method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
-    <p th:if="${loginError}" class="">Wrong user or password</p>
-    <label for="name" class="sr-only">Username</label>
-    <input type="text" id="name" th:field="*{username}" class="form-control" placeholder="Username" required autofocus>
-    <label for="passwd" class="sr-only">Password</label>
-    <input type="password" id="passwd" th:field="*{password}" class="form-control" placeholder="Password" required>
+    <div th:replace="header-component :: header"/>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <main class="text-center">
+        <form class="form-signin" th:action="@{/account}" th:object="${account}" th:method="post">
+            <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+            <p th:if="${loginError}" class="">Wrong user or password</p>
+            <label for="name" class="sr-only">Username</label>
+            <input type="text" id="name" th:field="*{username}" class="form-control" placeholder="Username" required
+                   autofocus>
+            <label for="passwd" class="sr-only">Password</label>
+            <input type="password" id="passwd" th:field="*{password}" class="form-control" placeholder="Password"
+                   required>
 
-</form>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
-<div th:replace="common::bootstrap"></div>
+        </form>
+    </main>
+    <div th:replace="footer-component :: footer"/>
+</div>
 </body>
 </html>

@@ -5,17 +5,23 @@
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
-<body class="text-center">
+<body th:replace="common::bootstrap(~{::div})">
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
 
-<form class="form-signin" th:action="@{/role}" th:object="${role}" th:method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Enter role name</h1>
-    <label for="rolename" class="sr-only">Username</label>
-    <input type="text" id="rolename" th:field="*{name}" class="form-control" placeholder="RoleName" required autofocus>
+    <div th:replace="header-component :: header"/>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+    <main class="text-center">
+        <form class="form-signin" th:action="@{/role}" th:object="${role}" th:method="post">
+            <h1 class="h3 mb-3 font-weight-normal">Enter role name</h1>
+            <label for="rolename" class="sr-only">Username</label>
+            <input type="text" id="rolename" th:field="*{name}" class="form-control" placeholder="RoleName" required
+                   autofocus>
 
-</form>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
 
-<div th:replace="common::bootstrap"></div>
+        </form>
+    </main>
+    <div th:replace="footer-component::footer"></div>
+</div>
 </body>
 </html>

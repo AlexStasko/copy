@@ -3,8 +3,8 @@ package by.yakunina.copy.storage.mapper;
 import by.yakunina.copy.model.FileEntity;
 import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.storage.support.CrudMapper;
-import by.yakunina.copy.storage.support.EntityIdTypeHandler;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.ByteArrayTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface FileMapper extends CrudMapper<FileEntity> {
 
     @Override
     @Select("INSERT INTO copy.file (id, name, data)" +
-            " VALUES(#{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}, #{name}, #{data})" +
+            " VALUES(#{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}, #{name}, #{data, typeHandler=org.apache.ibatis.type.ByteArrayTypeHandler})" +
             " RETURNING id")
     EntityId create(FileEntity entity);
 
@@ -24,7 +24,7 @@ public interface FileMapper extends CrudMapper<FileEntity> {
     FileEntity read(EntityId id);
 
     @Override
-    @Update("UPDATE copy.file SET name = #{name}, data = #{data}" +
+    @Update("UPDATE copy.file SET name = #{name}, data = #{data, typeHandler=org.apache.ibatis.type.ByteArrayTypeHandler}" +
             " WHERE id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
     void update(FileEntity entity);
 
@@ -36,7 +36,7 @@ public interface FileMapper extends CrudMapper<FileEntity> {
     List<String> readAll();
 
     @Results(value = {
-            @Result(column = "data", jdbcType = JdbcType.BINARY)
+            @Result(column = "data", jdbcType = JdbcType.BINARY, typeHandler = ByteArrayTypeHandler.class)
     })
     @Select("SELECT data FROM copy.file WHERE name = #{name}")
     byte[] readData(String name);
