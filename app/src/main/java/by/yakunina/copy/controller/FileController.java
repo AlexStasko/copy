@@ -49,8 +49,10 @@ public class FileController {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+        redirectAttributes.addFlashAttribute("filename", file.getOriginalFilename());
+        redirectAttributes.addFlashAttribute("orderId", "11111");
 
-        return "redirect:/files";
+        return "redirect:/service";
     }
 
     @ExceptionHandler(FileNotFoundException.class)

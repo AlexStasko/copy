@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: header(~{::title},~{})">
+    <title>New Order</title>
+    <!--<link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">-->
+</head>
+
+<body th:replace="common::bootstrap(~{::div})">
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
+
+    <div th:replace="header-component :: header"/>
+
+    <main class="col-md-4 offset-md-2">
+        <div th:if="${message}">
+            <p class="alert alert-success" th:text="${message}"/>
+        </div>
+        <h2>Choose options for printing document</h2>
+        <h3 th:if="${filename}" th:text="${filename}"/>
+        <form th:action="@{/service}" th:object="${service}" th:method="post">
+
+            <div class="form-group">
+                <label for="copiesNumber">Number of copies</label>
+                <input type="number" class="form-control" id="copiesNumber" th:field="*{copiesNumber}">
+            </div>
+            <div class="form-group">
+                <label for="pagesPerSheet">Pages per sheet</label>
+                <select id="pagesPerSheet" class="form-control" th:field="*{pagesPerSheet}">
+                    <option th:value="1" selected>1</option>
+                    <option th:value="2">2</option>
+                    <option th:value="4">4</option>
+                    <option th:value="6">6</option>
+                    <option th:value="9">9</option>
+                    <option th:value="16">16</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pages">Pages</label>
+                <input type="text" class="form-control" id="pages" th:field="*{pages}">
+            </div>
+            <div class="form-group">
+                <label for="comment">Comments</label>
+                <textarea class="form-control" id="comment" th:field="*{comment}"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
+
+    <div th:replace="footer-component::footer"></div>
+</div>
+
+
+</body>
+</html>
