@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: header(~{::title},~{::link})">
+    <title>Log In</title>
+    <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
+</head>
+
+<body th:replace="common::bootstrap(~{::div})">
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
+
+    <div th:replace="header-component :: header"/>
+
+    <main class="col-md-6 offset-md-2">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Assignee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>num</th>
+                <td th:text="${order.getId().getId()}">Order ID</td>
+                <td th:text="${order.getCustomer().getName()}">Customer</td>
+                <td th:text="${order.getEmployee().getName()}">Assignee</td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/orders}">Back to orders</a>
+    </main>
+    <div th:replace="footer-component::footer"></div>
+</div>
+
+
+</body>
+</html>
