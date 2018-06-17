@@ -12,20 +12,22 @@
 
     <main class="col-md-6 offset-md-2">
         <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Order ID</th>
-                <th scope="col">Customer</th>
-                <th scope="col">Assignee</th>
-            </tr>
-            </thead>
             <tbody>
             <tr>
-                <th>num</th>
+                <th>Order ID</th>
                 <td th:text="${order.getId().getId()}">Order ID</td>
+            </tr>
+            <tr>
+                <th>Customer</th>
                 <td th:text="${order.getCustomer().getName()}">Customer</td>
+            </tr>
+            <tr th:if="${order.getEmployee()}">
+                <th>Assignee</th>
                 <td th:text="${order.getEmployee().getName()}">Assignee</td>
+            </tr>
+            <tr th:unless="${order.getEmployee()}">
+                <th>Assignee</th>
+                <td>Not Assigned</td>
             </tr>
             </tbody>
         </table>

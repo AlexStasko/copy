@@ -44,6 +44,7 @@ public class AccountService {
                 .withId(new EntityId(KeyGenerator.getUUID()))
                 .withUsername(registration.getUsername())
                 .withPassword(passwordEncoder.encode(registration.getPassword()))
+                .withUserId(registration.getUserId())
                 .build());
         LOGGER.info("New account [{}]", accountId);
         Role role = roleDao.readByName(USER_ROLE_NAME);

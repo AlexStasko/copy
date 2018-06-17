@@ -1,8 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{},~{})"></head>
-<body>
-<p th:text="'Hello, ' + ${name} + '!'"></p>
+<body th:replace="common :: bootstrap(~{::div})">
+
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
+
+    <div th:replace="header-component :: header"/>
+    <p th:text="'Hello, ' + ${name} + '!'"></p>
+</div>
 </body>
 
 

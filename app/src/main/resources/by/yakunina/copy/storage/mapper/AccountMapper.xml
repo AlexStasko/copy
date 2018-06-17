@@ -9,6 +9,7 @@
 
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result property="userId" column="user_id" javaType="by.yakunina.copy.model.support.EntityId" typeHandler="by.yakunina.copy.storage.support.EntityIdTypeHandler"/>
         <collection property="roles" javaType="java.util.ArrayList" ofType="by.yakunina.copy.model.auth.Role">
             <result property="id" column="role_id" javaType="by.yakunina.copy.model.support.EntityId" typeHandler="by.yakunina.copy.storage.support.EntityIdTypeHandler"/>
             <result property="name" column="name" />

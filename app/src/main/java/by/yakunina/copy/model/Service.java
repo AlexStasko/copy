@@ -10,6 +10,7 @@ import java.util.List;
 public class Service implements Identifiable{
 
     private EntityId id;
+    private EntityId fileId;
     private ServiceType serviceType;
     private Material material;
     private int copiesNumber;
@@ -19,6 +20,7 @@ public class Service implements Identifiable{
 
     public Service() {
         this.id = null;
+        this.fileId = null;
         this.serviceType = null;
         this.material = null;
         this.copiesNumber = 0;
@@ -83,10 +85,19 @@ public class Service implements Identifiable{
         this.comment = comment;
     }
 
+    public EntityId getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(EntityId fileId) {
+        this.fileId = fileId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
+                .append("fileId", fileId)
                 .append("serviceType", serviceType)
                 .append("material", material)
                 .append("copiesNumber", copiesNumber)

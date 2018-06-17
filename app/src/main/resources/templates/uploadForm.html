@@ -15,6 +15,7 @@
 
         <div>
             <form method="POST" enctype="multipart/form-data" th:action="@{/upload}">
+                <input type="text" class="hidden" th:value="${orderId}" name="orderId" id="orderId"/>
                 <div class="form-group">
                     <label for="file">File to upload:</label>
                     <input class="file-input" type="file" name="file" id="file"/>

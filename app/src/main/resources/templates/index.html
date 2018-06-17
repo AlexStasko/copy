@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="header :: header(~{::title},~{})">
     <title>Copy Center Index</title>
 </head>
@@ -20,7 +20,7 @@
         <p>Nulla at dui magna. Suspendisse eu orci et leo vulputate finibus facilisis ac velit. Donec viverra ultrices commodo. Quisque ac cursus turpis. Integer orci est, vulputate nec neque et, aliquam commodo eros. Aliquam maximus quam et vestibulum luctus. Aliquam quam erat, suscipit vel sem rutrum, pretium placerat libero. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis orci diam, dictum et velit id, semper porttitor metus. Donec in lorem ut massa porta pellentesque. Nam suscipit pellentesque nulla, sit amet facilisis dolor dapibus vel. Donec at arcu at velit sodales luctus. Quisque quis porta sem. Aliquam erat volutpat. Fusce quam velit, consequat sed cursus id, consectetur ac orci. Phasellus suscipit vel leo ac tincidunt.</p>
 
         <ul>
-            <li><a href="/files" th:href="@{/files}">New order</a></li>
+            <li><a href="/orders/create" th:href="@{/orders/create}">New order</a></li>
         </ul>
 
     </main>

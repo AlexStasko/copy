@@ -25,7 +25,12 @@
                 <tr th:each="order : ${orders}">
                     <td th:text="${order.getId().getId()}">Order ID</td>
                     <td th:text="${order.getCustomer().getName()}">Customer</td>
-                    <td th:text="${order.getEmployee().getName()}">Assignee</td>
+                    <div th:if="${order.getEmployee()}">
+                        <td th:text="${order.getEmployee().getName()}">Not assigned</td>
+                    </div>
+                    <div th:unless="${order.getEmployee()}">
+                        <td>Not assigned</td>
+                    </div>
                     <td><a class="btn btn-primary" th:href="@{/orders/{id}(id=${order.getId().getId()})}">Details</a>
                     </td>
                 </tr>

@@ -12,13 +12,16 @@ import java.util.List;
 public interface AccountMapper extends CrudMapper<Account> {
 
     @Override
-    @Select("INSERT INTO copy.account(id, username, password)" +
-            " VALUES(#{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}, #{username}, #{password})" +
+    @Select("INSERT INTO copy.account(id, username, password, user_id)" +
+            " VALUES(#{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}, #{username}, #{password}, #{userId, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler})" +
             " RETURNING id")
     EntityId create(Account entity);
 
     @Override
-    @Select("SELECT id, username, password" +
+    @Results({
+            @Result(column = "user_id", typeHandler = EntityIdTypeHandler.class, property = "userId")
+    })
+    @Select("SELECT id, username, password, user_id" +
             " FROM copy.account WHERE id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
     Account read(EntityId id);
 
@@ -33,8 +36,7 @@ public interface AccountMapper extends CrudMapper<Account> {
     void delete(EntityId id);
 
     @ResultMap("AccountResultMap")
-
-    @Select("SELECT acc.id as account_id, acc.username, acc.password, roles.name, roles.id as role_id" +
+    @Select("SELECT acc.id as account_id, acc.username, acc.password, acc.user_id, roles.name, roles.id as role_id" +
             " FROM copy.account acc" +
             " LEFT JOIN copy.role_account_map ram ON ram.account_id = acc.id" +
             " LEFT JOIN copy.role roles ON roles.id = ram.role_id" +
@@ -58,10 +60,11 @@ public interface AccountMapper extends CrudMapper<Account> {
     @Update("UPDATE copy.account SET password = #{newPassword} WHERE username = #{username}")
     void changePassword(String username, String newPassword);
 
-    @Select("SELECT account.id, account.username, account.password, roles.name, roles.id" +
-            " FROM copy.account" +
-            " LEFT JOIN copy.role_account_map ram ON ram.account_id = account.id" +
+    @ResultMap("AccountResultMap")
+    @Select("SELECT acc.id as account_id, acc.username, acc.password, acc.user_id, roles.name, roles.id as role_id" +
+            " FROM copy.account acc" +
+            " LEFT JOIN copy.role_account_map ram ON ram.account_id = acc.id" +
             " LEFT JOIN copy.role roles ON roles.id = ram.role_id" +
-            " WHERE  account.id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
+            " WHERE acc.id = #{id, typeHandler=by.yakunina.copy.storage.support.EntityIdTypeHandler}")
     Account readWithRoles(EntityId id);
 }

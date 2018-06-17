@@ -18,6 +18,8 @@
         <h3 th:if="${filename}" th:text="${filename}"/>
         <form th:action="@{/service}" th:object="${service}" th:method="post">
 
+            <input type="text" class="hidden" name="orderId" id="orderId" th:value="${orderId}">
+            <input type="text" class="hidden" name="fileId" id="fileId" th:value="${fileId}">
             <div class="form-group">
                 <label for="copiesNumber">Number of copies</label>
                 <input type="number" class="form-control" id="copiesNumber" th:field="*{copiesNumber}">

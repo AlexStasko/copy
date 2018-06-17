@@ -5,16 +5,21 @@ import by.yakunina.copy.model.support.Identifiable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Order implements Identifiable {
 
     private EntityId id;
     private Customer customer;
     private Employee employee;
+    private List<Service> services;
 
     public Order() {
         this.id = null;
         this.customer = null;
         this.employee = null;
+        this.services = Collections.emptyList();
     }
 
     @Override
@@ -42,12 +47,21 @@ public class Order implements Identifiable {
         this.employee = employee;
     }
 
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
                 .append("customer", customer)
                 .append("employee", employee)
+                .append("services", services)
                 .toString();
     }
 }

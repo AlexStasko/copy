@@ -1,10 +1,12 @@
-<header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="masthead d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+<header xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" th:fragment="header"
+        class="masthead d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal"><a th:href="@{/}" class="text-dark">Copy Center</a></h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="#">Features</a>
-        <a class="p-2 text-dark" href="#">Enterprise</a>
-        <a class="p-2 text-dark" href="#">Support</a>
-        <a class="p-2 text-dark" href="#">Pricing</a>
+    <nav sec:authorize="isAuthenticated()" class="my-2 my-md-0 mr-md-3">
+        <a sec:authorize="hasRole('USER')" class="p-2 text-dark" href="#">My profile</a>
+        <a sec:authorize="hasRole('USER')" class="p-2 text-dark" href="#">My Orders</a>
+        <a sec:authorize="hasRole('ADMIN')">Orders</a>
     </nav>
-    <a class="btn btn-outline-primary" href="#" th:href="@{/account}">Sign up</a>
+
+    <a sec:authorize="isAnonymous()" class="btn btn-outline-primary" href="#" th:href="@{/login}">Sign in</a>
+    <a sec:authorize="isAuthenticated()" class="btn btn-outline-primary" href="#" th:href="@{/logout}">Log out</a>
 </header>
