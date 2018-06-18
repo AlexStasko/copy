@@ -11,11 +11,20 @@ public class Customer extends User {
 
     private String address;
     private String phoneNumber;
+    private String email;
+
+    public Customer() {
+        super();
+        this.address = null;
+        this.phoneNumber = null;
+        this.email = null;
+    }
 
     private Customer(CustomerBuilder builder) {
         super(builder.id, builder.name, builder.lastName);
         this.address = builder.address;
         this.phoneNumber = builder.phoneNumber;
+        this.email = builder.email;
     }
 
     public String getAddress() {
@@ -34,12 +43,21 @@ public class Customer extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .appendSuper(super.toString())
                 .append("address", address)
                 .append("phoneNumber", phoneNumber)
+                .append("email", email)
                 .toString();
     }
 
@@ -49,6 +67,7 @@ public class Customer extends User {
         private String lastName;
         private String address;
         private String phoneNumber;
+        private String email;
 
         public CustomerBuilder withId(EntityId pId) {
             this.id = pId;
@@ -75,6 +94,10 @@ public class Customer extends User {
             return this;
         }
 
+        public CustomerBuilder withEmail(String pEmail) {
+            this.email = pEmail;
+            return this;
+        }
         public Customer build() {
             return new Customer(this);
         }

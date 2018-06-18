@@ -11,6 +11,12 @@ public abstract class User implements Identifiable {
     private String name;
     private String lastName;
 
+    User() {
+        this.id = null;
+        this.name = null;
+        this.lastName = null;
+    }
+
     User(EntityId id, String name, String lastName) {
         this.id = id;
         this.name = name;

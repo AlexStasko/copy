@@ -1,5 +1,6 @@
 package by.yakunina.copy.controller;
 
+import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.service.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,7 @@ public class FileController {
     private StorageService storageService;
 
     @GetMapping("/files")
-    public String listUploadedFiles(Model model) throws IOException {
+    public String listUploadedFiles(Model model) {
 
         model.addAttribute("files", storageService.loadAll().stream().map(
                 name -> MvcUriComponentsBuilder.fromMethodName(FileController.class,
@@ -42,15 +43,16 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("orderId") String orderId,
                                    RedirectAttributes redirectAttributes) {
-        System.out.println("upload");
 
-        storageService.store(file);
+
+        EntityId fileId = storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         redirectAttributes.addFlashAttribute("filename", file.getOriginalFilename());
-        redirectAttributes.addFlashAttribute("orderId", "11111");
+        redirectAttributes.addFlashAttribute("orderId", orderId);
+        redirectAttributes.addFlashAttribute("fileId", fileId.getId());
 
         return "redirect:/service";
     }

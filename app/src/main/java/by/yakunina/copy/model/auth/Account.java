@@ -20,14 +20,14 @@ public class Account implements Identifiable, Serializable {
     private static final long serialVersionUID = 1L;
 
     private EntityId id;
-    private User user;
+    private EntityId userId;
     private String username;
     private String password;
     private List<Role> roles;
 
     public Account() {
         this.id = null;
-        this.user = null;
+        this.userId= null;
         this.username = null;
         this.password = null;
         this.roles = null;
@@ -35,7 +35,7 @@ public class Account implements Identifiable, Serializable {
 
     public Account(AccountBuilder builder) {
         this.id = builder.id;
-        this.user = builder.user;
+        this.userId = builder.userId;
         this.roles = builder.roles;
         this.username = builder.username;
         this.password = builder.password;
@@ -50,12 +50,12 @@ public class Account implements Identifiable, Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public EntityId getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(EntityId userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -86,7 +86,7 @@ public class Account implements Identifiable, Serializable {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("id", id)
-                .append("user", user)
+                .append("userId", userId)
                 .append("username", username)
                 .append("password", password)
                 .append("roles", roles)
@@ -95,7 +95,7 @@ public class Account implements Identifiable, Serializable {
 
     public static final class AccountBuilder implements Builder<Account> {
         private EntityId id;
-        private User user;
+        private EntityId userId;
         private String username;
         private String password;
         private List<Role> roles;
@@ -105,8 +105,8 @@ public class Account implements Identifiable, Serializable {
             return this;
         }
 
-        public AccountBuilder withUserId(User user) {
-            this.user = user;
+        public AccountBuilder withUserId(EntityId userId) {
+            this.userId = userId;
             return this;
         }
 

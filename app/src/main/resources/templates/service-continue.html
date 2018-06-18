@@ -13,7 +13,7 @@
     <main class="col-md-6 offset-md-2">
         <label>Would you like to upload one more file?</label>
         <a th:href="@{/files}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Yes</a>
-        <a th:href="@{/service/111/save}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">No</a>
+        <a th:href="@{/service/${orderId}/save}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">No</a>
     </main>
     <div th:replace="footer-component::footer"></div>
 </div>

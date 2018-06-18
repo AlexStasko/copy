@@ -34,6 +34,7 @@ CREATE TABLE copy.account
   id uuid NOT NULL,
   username character varying(255) NOT NULL,
   password character varying(255) NOT NULL,
+  user_id uuid NOT NULL,
   CONSTRAINT pk_account PRIMARY KEY (id)
 )
 WITH (

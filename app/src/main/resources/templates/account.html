@@ -13,15 +13,30 @@
     <main class="text-center">
         <form class="form-signin" th:action="@{/account}" th:object="${account}" th:method="post">
             <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
-            <p th:if="${loginError}" class="">Wrong user or password</p>
+            <p th:if="${loginError}" class="alert alert-danger">Wrong user or password</p>
             <label for="name" class="sr-only">Username</label>
-            <input type="text" id="name" th:field="*{username}" class="form-control" placeholder="Username" required
+            <input type="text" id="name" th:field="*{username}" class="form-control form-signin-first form-signin-input " placeholder="Username" required
                    autofocus>
             <label for="passwd" class="sr-only">Password</label>
-            <input type="password" id="passwd" th:field="*{password}" class="form-control" placeholder="Password"
+            <input type="password" id="passwd" th:field="*{password}" class="form-control form-signin-last form-signin-input " placeholder="Password"
+                   required>
+            <label for="fname" class="sr-only">First name</label>
+            <input type="text" id="fname" th:field="*{firstName}" class="form-control form-signin-first form-signin-input " placeholder="First name"
+                   required>
+            <label for="lname" class="sr-only">Last name</label>
+            <input type="text" id="lname" th:field="*{lastName}" class="form-control form-signin-input " placeholder="Last name"
+                   required>
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control form-signin-input " placeholder="Email"
+                   required>
+            <label for="address" class="sr-only">Address</label>
+            <input type="text" id="address" th:field="*{address}" class="form-control form-signin-input " placeholder="Address"
+                   required>
+            <label for="phone" class="sr-only">Phone number</label>
+            <input type="text" id="phone" th:field="*{phoneNumber}" class="form-control form-signin-last form-signin-input " placeholder="Phone number"
                    required>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+            <button class="btn btn-lg btn-primary btn-block btn-account" type="submit">Sign up</button>
 
         </form>
     </main>

@@ -17,13 +17,19 @@
 .form-signin .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="email"] {
+.form-signin-input {
   margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-signin-first {
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+.form-signin-last {
   margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+.btn-account {
+  margin-top: 10px;
 }
