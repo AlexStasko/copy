@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: header(~{::title},~{::link})">
+    <title>Log In</title>
+    <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
+</head>
+
+<body th:replace="common::bootstrap(~{::div})">
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
+
+    <div th:replace="header-component :: header"/>
+
+    <main class="col-md-6 offset-md-2">
+        <h2>Order info</h2>
+        <form th:action="@{/orders/{id}/edit(id=${order.getId().getId()})}" th:method="post" th:object="${orderForm}">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Order ID</th>
+                    <td th:text="${order.getId().getId()}">Order ID</td>
+                </tr>
+                <tr>
+                    <th>Customer</th>
+                    <td th:text="${order.getCustomer().getName()}">Customer</td>
+                </tr>
+                <tr th:if="${order.getEmployee()}">
+                    <th>Assignee</th>
+                    <td>
+                        <select class="form-control" th:field="*{employeeId}">
+                            <option th:value="${order.getEmployee().getId().getId()}" th:text="${order.getEmployee().getName()}" selected>Not assigned</option>
+                            <option th:each="employee : ${employees}" th:value="${employee.getId().getId()}" th:text="${employee.getName()}">1</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr th:unless="${order.getEmployee()}">
+                    <th>Assignee</th>
+                    <td>
+                        <select class="form-control" th:field="*{employeeId}">
+                            <option th:value="null" th:text="'Not assigned'" selected>Not assigned</option>
+                            <option th:each="employee : ${employees}" th:value="${employee.getId().getId()}" th:text="${employee.getName()}">1</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        <select class="form-control" th:field="*{status}">
+                            <option th:value="${order.getStatus()}" th:text="${order.getStatus()}" selected>Not assigned</option>
+                            <option th:value="'Pending'" th:text="'Pending'">1</option>
+                            <option th:value="'In progress'" th:text="'In progress'">1</option>
+                            <option th:value="'Done'" th:text="'Done'">1</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" th:value="Edit"/>
+        </form>
+    </main>
+    <div th:replace="footer-component::footer"></div>
+</div>
+
+
+</body>
+</html>

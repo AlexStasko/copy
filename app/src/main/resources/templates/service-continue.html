@@ -11,9 +11,14 @@
     <div th:replace="header-component :: header"/>
 
     <main class="col-md-6 offset-md-2">
-        <label>Would you like to upload one more file?</label>
-        <a th:href="@{/files}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Yes</a>
-        <a th:href="@{/service/${orderId}/save}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">No</a>
+        <p>Would you like to upload one more file?</p>
+        <form th:action="@{/orders/continue}" th:method="post">
+            <input type="text" class="invisible" name="orderId" id="orderId" th:value="${orderId}">
+            <input type="submit" class="btn btn-primary btn-lg active" th:value="Yes"/>
+            <a th:href="@{/service/${orderId}/save}" class="btn btn-secondary btn-lg active" role="button"
+               aria-pressed="true">No</a>
+        </form>
+
     </main>
     <div th:replace="footer-component::footer"></div>
 </div>

@@ -3,21 +3,24 @@ package by.yakunina.copy.controller;
 import by.yakunina.copy.model.Customer;
 import by.yakunina.copy.model.Employee;
 import by.yakunina.copy.model.Order;
+import by.yakunina.copy.model.OrderUpdateStatusForm;
 import by.yakunina.copy.model.auth.Account;
 import by.yakunina.copy.model.auth.CopyUser;
 import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.service.AccountService;
 import by.yakunina.copy.service.CustomerService;
+import by.yakunina.copy.service.EmployeeService;
 import by.yakunina.copy.service.OrderService;
 import by.yakunina.copy.support.KeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -28,45 +31,6 @@ public class OrderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
-    private static List<Order> orders = new ArrayList<>();
-
-    static {
-        Customer customer = new Customer.CustomerBuilder()
-                .withId(new EntityId(KeyGenerator.getUUID()))
-                .withName("Alex")
-                .withLastName("Stasko")
-                .withAddress("N/A")
-                .withPhoneNumber("11111")
-                .build();
-        Customer customer1 = new Customer.CustomerBuilder()
-                .withId(new EntityId(KeyGenerator.getUUID()))
-                .withName("Sasha")
-                .withLastName("Stasko")
-                .withAddress("N/A")
-                .withPhoneNumber("11111")
-                .build();
-        Employee employee = new Employee.EmployeeBuilder()
-                .withId(new EntityId(KeyGenerator.getUUID()))
-                .withName("Worker")
-                .withLastName("Hard")
-                .withTitle("Agent")
-                .build();
-
-        Order order = new Order();
-        order.setId(new EntityId(KeyGenerator.getUUID()));
-        order.setCustomer(customer);
-        order.setEmployee(employee);
-
-        orders.add(order);
-
-        order = new Order();
-        order.setId(new EntityId(KeyGenerator.getUUID()));
-        order.setCustomer(customer1);
-        order.setEmployee(employee);
-
-        orders.add(order);
-    }
-
     @Resource
     private AccountService accountService;
     @Resource
@@ -75,11 +39,22 @@ public class OrderController {
     private FileController fileController;
     @Resource
     private OrderService orderService;
+    @Resource
+    private EmployeeService employeeService;
 
     @GetMapping("/orders")
-    public String getOrders(Model model) {
+    public String getOrders(Model model, Authentication authentication) {
+        List<Order> orders;
 
-        List<Order> orders = orderService.findAll();
+        CopyUser user = (CopyUser) authentication.getPrincipal();
+
+        if (user.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+            Account account = accountService.authenticate(user.getUsername());
+            Customer customer = customerService.findCustomer(account.getUserId());
+            orders = orderService.findOrdersByUserId(customer.getId().getId());
+        } else {
+            orders = orderService.findAll();
+        }
         LOGGER.info("Attempt to get orders [{}]", orders);
         model.addAttribute("orders", orders);
 
@@ -110,9 +85,37 @@ public class OrderController {
         Customer customer = customerService.findCustomer(account.getUserId());
         LOGGER.info("User [{}] tries to create order", customer);
         order.setCustomer(customer);
+        order.setStatus("Pending");
         EntityId id = orderService.createOrder(order);
 
         model.addAttribute("orderId", id.getId());
         return fileController.listUploadedFiles(model);
+    }
+
+    @GetMapping("/orders/{orderId}/edit")
+    public String getOrderEditPage(@PathVariable("orderId") String orderId, Model model) {
+        Order order = orderService.findOrder(orderId);
+        model.addAttribute("order", order);
+        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("orderForm", new OrderUpdateStatusForm());
+        return "order-update";
+    }
+
+    @PostMapping("/orders/{orderId}/edit")
+    public String editOrder(@PathVariable("orderId") String orderId, @ModelAttribute OrderUpdateStatusForm orderForm) {
+        Order order = orderService.findOrder(orderId);
+        Employee employee = employeeService.findEmployee(orderForm.getEmployeeId());
+        order.setEmployee(employee);
+        order.setStatus(orderForm.getStatus());
+        orderService.update(order);
+
+        return "redirect:/orders/" + orderId;
+    }
+
+    @PostMapping("/orders/continue")
+    public String continueOrdering(RedirectAttributes redirectAttributes, @RequestParam("orderId") String orderId) {
+
+        redirectAttributes.addFlashAttribute("orderId", orderId);
+        return "redirect:/files";
     }
 }
