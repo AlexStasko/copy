@@ -39,9 +39,28 @@ public class OrderService {
 
     public void addService(String id, Service service) {
         for (Order order : orders) {
-            if (order.getId().toString().equals(id)) {
+            if (order.getId().getId().equals(id)) {
                 order.getServices().add(service);
             }
         }
+    }
+
+    public void update(Order newOrder) {
+        for (Order order : orders) {
+            if (order.getId().getId().equals(newOrder.getId().getId())) {
+                orders.add(newOrder);
+                orders.remove(order);
+            }
+        }
+    }
+
+    public List<Order> findOrdersByUserId(String id) {
+        List<Order> orderList = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getCustomer().getId().getId().equals(id)) {
+                orderList.add(order);
+            }
+        }
+        return orderList;
     }
 }

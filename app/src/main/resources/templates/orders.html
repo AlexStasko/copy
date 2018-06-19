@@ -18,6 +18,7 @@
                     <th scope="col">Order ID</th>
                     <th scope="col">Customer</th>
                     <th scope="col">Assignee</th>
+                    <th scope="col">Status</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -26,12 +27,14 @@
                     <td th:text="${order.getId().getId()}">Order ID</td>
                     <td th:text="${order.getCustomer().getName()}">Customer</td>
                     <div th:if="${order.getEmployee()}">
-                        <td th:text="${order.getEmployee().getName()}">Not assigned</td>
+                        <td th:text="${order.getEmployee().getName()} + ' ' + ${order.getEmployee().getLastName()}">Not assigned</td>
                     </div>
                     <div th:unless="${order.getEmployee()}">
                         <td>Not assigned</td>
                     </div>
-                    <td><a class="btn btn-primary" th:href="@{/orders/{id}(id=${order.getId().getId()})}">Details</a>
+                    <td th:text="${order.getStatus()}">Status</td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/orders/{id}(id=${order.getId().getId()})}">Details</a>
                     </td>
                 </tr>
                 </tbody>

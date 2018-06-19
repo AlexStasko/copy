@@ -3,8 +3,8 @@
     <h5 class="my-0 mr-md-auto font-weight-normal"><a th:href="@{/}" class="text-dark">Copy Center</a></h5>
     <nav sec:authorize="isAuthenticated()" class="my-2 my-md-0 mr-md-3">
         <a sec:authorize="hasRole('USER')" class="p-2 text-dark" href="#">My profile</a>
-        <a sec:authorize="hasRole('USER')" class="p-2 text-dark" href="#">My Orders</a>
-        <a sec:authorize="hasRole('ADMIN')">Orders</a>
+        <a sec:authorize="hasRole('USER')" class="p-2 text-dark" th:href="@{/orders}">My Orders</a>
+        <a sec:authorize="hasRole('ADMIN')" class="p-2 text-dark" th:href="@{/orders}">Orders</a>
     </nav>
 
     <a sec:authorize="isAnonymous()" class="btn btn-outline-primary" href="#" th:href="@{/login}">Sign in</a>
