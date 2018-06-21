@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{::link})">
-    <title>Error</title>
+    <title>Ошибка</title>
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
@@ -11,8 +11,8 @@
     <div th:replace="header-component :: header"/>
 
     <main class="text-center">
-        <h1>Something went wrong! Try to do this later.</h1>
-        <a href="#" th:href="@{/}">Back to main page</a>
+        <h1>Что-то пошло не так! Повторите попытку позже</h1>
+        <a href="#" th:href="@{/}">Вернуться на главную страницу</a>
 
     </main>
     <div th:replace="footer-component::footer"></div>

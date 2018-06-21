@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{})">
-    <title>New Order</title>
+    <title>Услуга</title>
     <!--<link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">-->
 </head>
 
@@ -14,18 +14,18 @@
         <div th:if="${message}">
             <p class="alert alert-success" th:text="${message}"/>
         </div>
-        <h2>Choose options for printing document</h2>
+        <h2>Выбирите параметры печати документа</h2>
         <h3 th:if="${filename}" th:text="${filename}"/>
         <form th:action="@{/service}" th:object="${service}" th:method="post">
 
             <input type="text" class="invisible" name="orderId" id="orderId" th:value="${orderId}">
             <input type="text" class="invisible" name="fileId" id="fileId" th:value="${fileId}">
             <div class="form-group">
-                <label for="copiesNumber">Number of copies</label>
+                <label for="copiesNumber">Количество копий</label>
                 <input type="number" class="form-control" id="copiesNumber" th:field="*{copiesNumber}">
             </div>
             <div class="form-group">
-                <label for="pagesPerSheet">Pages per sheet</label>
+                <label for="pagesPerSheet">Количество страниц на одн лист</label>
                 <select id="pagesPerSheet" class="form-control" th:field="*{pagesPerSheet}">
                     <option th:value="1" selected>1</option>
                     <option th:value="2">2</option>
@@ -36,15 +36,22 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="pages">Pages</label>
+                <label for="pages">Страницы</label>
                 <input type="text" class="form-control" id="pages" th:field="*{pages}">
             </div>
+            <div>
+                <label for="material">Материал</label>
+                <select id="material" class="form-control" th:field="*{material}">
+                    <option th:value="null" th:text="'Не выбран'" selected>Not assigned</option>
+                    <option th:each="material : ${materials}" th:value="${material.getName()}" th:text="${material.getName()}">1</option>
+                </select>
+            </div>
             <div class="form-group">
-                <label for="comment">Comments</label>
+                <label for="comment">Коментарий</label>
                 <textarea class="form-control" id="comment" th:field="*{comment}"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Далее</button>
         </form>
     </main>
 
