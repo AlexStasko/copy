@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="header :: header(~{::title},~{::link})">
-    <title>Log In</title>
+    <title>Заказ</title>
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
@@ -11,56 +11,77 @@
     <div th:replace="header-component :: header"/>
 
     <main class="col-md-6 offset-md-2">
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/orders}">Back to orders</a>
-        <h2>Order info</h2>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/orders}">Вернуться к списку заказов</a>
+        <h2>Информация о заказе</h2>
         <table class="table">
             <tbody>
             <tr>
-                <th>Order ID</th>
+                <th>ID заказа</th>
                 <td th:text="${order.getId().getId()}">Order ID</td>
             </tr>
             <tr>
-                <th>Customer</th>
+                <th>Заказчик</th>
                 <td th:text="${order.getCustomer().getName()}">Customer</td>
             </tr>
             <tr th:if="${order.getEmployee()}">
-                <th>Assignee</th>
+                <th>Сотрудник</th>
                 <td th:text="${order.getEmployee().getName()}">Assignee</td>
             </tr>
             <tr th:unless="${order.getEmployee()}">
-                <th>Assignee</th>
-                <td>Not Assigned</td>
+                <th>Сотрудник</th>
+                <td>Не указан</td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>Статус</th>
                 <td th:text="${order.getStatus()}">Status</td>
             </tr>
             </tbody>
         </table>
-        <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" th:href="@{/orders/{id}/edit(id=${order.getId().getId()})}">Edit</a>
+        <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" th:href="@{/orders/{id}/edit(id=${order.getId().getId()})}">Редактировать заказ</a>
         <div th:unless="${order.getServices().isEmpty()}">
-            <h2>Services info</h2>
+            <h2>Информация об услугах</h2>
             <table class="table" th:each="service : ${order.getServices()}">
                 <tbody>
                 <tr>
-                    <th>Service ID</th>
+                    <th>ID услуги</th>
                     <td th:text="${service.getId().getId()}">Service ID</td>
+                    <td><a th:href="@{/orders/{orderId}/{serviceId}/edit(serviceId=${service.getId().getId()}, orderId=${order.getId().getId()}, material=${service.getMaterial().getName()})}" th:text="Редактировать"></a></td>
                 </tr>
                 <tr>
-                    <th>Number of copies</th>
+                    <th>Количество копий</th>
                     <td th:text="${service.getCopiesNumber()}">0</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th>Page per sheet</th>
+                    <th>Количество страни на лист</th>
                     <td th:text="${service.getPagesPerSheet()}">0</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th>Pages</th>
+                    <th>Страницы</th>
                     <td th:text="${service.getPages()}">All</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th>Comments</th>
+                    <th>Материал бумаги</th>
+                    <td th:text="${service.getMaterial().getName()}">All</td>
+                    <td></td>
+                </tr>
+                <tr sec:authorize="hasRole('ADMIN')">
+                    <th>Оборудование</th>
+                    <td th:unless="${service.getEquipment()}" th:text="'Не назначено'">All</td>
+                    <td th:if="${service.getEquipment()}" th:text="${service.getEquipment().getName()}">All</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Комментарии</th>
                     <td th:text="${service.getComment()}">All</td>
+                    <td></td>
+                </tr>
+                <tr sec:authorize="hasRole('ADMIN')">
+                    <th>Документ</th>
+                    <td><a class="btn btn-primary" th:href="@{/files/{id}(id=${service.getFileId().getId()})}" th:text="Скачать"></a></td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>

@@ -5,6 +5,7 @@ import by.yakunina.copy.model.support.Identifiable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.swing.plaf.ButtonUI;
 import java.util.List;
 
 public class Service implements Identifiable{
@@ -17,6 +18,7 @@ public class Service implements Identifiable{
     private int pagesPerSheet;
     private String pages;
     private String comment;
+    private Equipment equipment;
 
     public Service() {
         this.id = null;
@@ -27,7 +29,21 @@ public class Service implements Identifiable{
         this.pagesPerSheet = 0;
         this.pages = null;
         this.comment = null;
+        this.equipment = null;
     }
+
+    public Service(ServiceBuilder builder) {
+        this.id = builder.id;
+        this.fileId = builder.fileId;
+        this.serviceType = builder.serviceType;
+        this.material = builder.material;
+        this.copiesNumber = builder.copiesNumber;
+        this.pagesPerSheet = builder.pagesPerSheet;
+        this.pages = builder.pages;
+        this.comment = builder.comment;
+        this.equipment = builder.equipment;
+    }
+
     @Override
     public EntityId getId() {
         return id;
@@ -93,6 +109,14 @@ public class Service implements Identifiable{
         this.fileId = fileId;
     }
 
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -104,6 +128,69 @@ public class Service implements Identifiable{
                 .append("pagesPerSheet", pagesPerSheet)
                 .append("pages", pages)
                 .append("comment", comment)
+                .append("equipment", equipment)
                 .toString();
+    }
+
+    public static class ServiceBuilder {
+
+        private EntityId id;
+        private EntityId fileId;
+        private ServiceType serviceType;
+        private Material material;
+        private int copiesNumber;
+        private int pagesPerSheet;
+        private String pages;
+        private String comment;
+        private Equipment equipment;
+
+        public ServiceBuilder withId(EntityId pId) {
+            this.id = pId;
+            return this;
+        }
+
+        public ServiceBuilder withFileId(EntityId pId) {
+            this.fileId = pId;
+            return this;
+        }
+
+        public ServiceBuilder withServiceType(ServiceType pServiceType) {
+            this.serviceType = pServiceType;
+            return this;
+        }
+
+        public ServiceBuilder withMaterial(Material pMaterial) {
+            this.material = pMaterial;
+            return this;
+        }
+
+        public ServiceBuilder withCopiesNumber(int pCopiesNumber) {
+            this.copiesNumber = pCopiesNumber;
+            return this;
+        }
+
+        public ServiceBuilder withPagesPerSheet(int pPagesPerSheet) {
+            this.pagesPerSheet = pPagesPerSheet;
+            return this;
+        }
+
+        public ServiceBuilder withPages(String pPages) {
+            this.pages = pPages;
+            return this;
+        }
+
+        public ServiceBuilder withComment(String pComment) {
+            this.comment = pComment;
+            return this;
+        }
+
+        public ServiceBuilder withEquipment(Equipment pEquipment) {
+            this.equipment = pEquipment;
+            return this;
+        }
+
+        public Service build() {
+            return new Service(this);
+        }
     }
 }

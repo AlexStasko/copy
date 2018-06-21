@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{::link})">
-    <title>Log In</title>
+    <title>Войти</title>
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
@@ -12,16 +12,16 @@
 
     <main class="text-center">
         <form class="form-signin" th:action="@{/login}" th:method="post">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <p th:if="${loginError}" class="alert alert-danger">Wrong user or password</p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required
+            <h1 class="h3 mb-3 font-weight-normal">Введите данные для входа</h1>
+            <p th:if="${loginError}" class="alert alert-danger">Неправильные имя пользователя или пароль</p>
+            <label for="username" class="sr-only">Логин</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Логин" required
                    autofocus>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <label for="password" class="sr-only">Пароль</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
             <div class="p-2">
-                <a href="#" th:href="@{/account}">Register</a>
+                <a href="#" th:href="@{/account}">Регистрация</a>
             </div>
         </form>
 

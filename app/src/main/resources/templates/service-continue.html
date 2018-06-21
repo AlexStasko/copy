@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{::link})">
-    <title>Role</title>
+    <title>Услуга</title>
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
@@ -11,12 +11,12 @@
     <div th:replace="header-component :: header"/>
 
     <main class="col-md-6 offset-md-2">
-        <p>Would you like to upload one more file?</p>
+        <p>Хотите загрузить еще один файл для печати?</p>
         <form th:action="@{/orders/continue}" th:method="post">
             <input type="text" class="invisible" name="orderId" id="orderId" th:value="${orderId}">
-            <input type="submit" class="btn btn-primary btn-lg active" th:value="Yes"/>
+            <input type="submit" class="btn btn-primary btn-lg active" th:value="Да"/>
             <a th:href="@{/service/${orderId}/save}" class="btn btn-secondary btn-lg active" role="button"
-               aria-pressed="true">No</a>
+               aria-pressed="true">Нет</a>
         </form>
 
     </main>

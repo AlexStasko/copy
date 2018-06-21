@@ -85,7 +85,7 @@ public class OrderController {
         Customer customer = customerService.findCustomer(account.getUserId());
         LOGGER.info("User [{}] tries to create order", customer);
         order.setCustomer(customer);
-        order.setStatus("Pending");
+        order.setStatus("В ожидании обработки");
         EntityId id = orderService.createOrder(order);
 
         model.addAttribute("orderId", id.getId());

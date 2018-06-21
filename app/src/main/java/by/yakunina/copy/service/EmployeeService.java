@@ -16,16 +16,16 @@ public class EmployeeService {
     static {
         Employee employee = new Employee.EmployeeBuilder()
                 .withId(new EntityId(KeyGenerator.getUUID()))
-                .withName("Vasili")
-                .withLastName("Pupkin")
-                .withTitle("Worker")
+                .withName("Василий")
+                .withLastName("Пупкин")
+                .withTitle("Рабочий")
                 .build();
         employees.add(employee);
         employee = new Employee.EmployeeBuilder()
                 .withId(new EntityId(KeyGenerator.getUUID()))
-                .withName("Irina")
-                .withLastName("Nechaeva")
-                .withTitle("Manager")
+                .withName("Иван")
+                .withLastName("Иванов")
+                .withTitle("Менеджер")
                 .build();
         employees.add(employee);
     }

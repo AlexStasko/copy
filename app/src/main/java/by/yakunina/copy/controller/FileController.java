@@ -1,7 +1,9 @@
 package by.yakunina.copy.controller;
 
+import by.yakunina.copy.model.FileEntity;
 import by.yakunina.copy.model.support.EntityId;
 import by.yakunina.copy.service.StorageService;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +35,14 @@ public class FileController {
         return "uploadForm";
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/files/{id}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> serveFile(@PathVariable("id") String id) {
 
-        Resource file = storageService.loadAsResource(filename);
+        FileEntity fileEntity = storageService.getFile(id);
+        Resource file = new ByteArrayResource(fileEntity.getData());
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                "attachment; filename=\"" + fileEntity.getName() + "\"").body(file);
     }
 
     @PostMapping("/upload")

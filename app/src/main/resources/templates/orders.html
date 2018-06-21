@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{::link})">
-    <title>Log In</title>
+    <title>Заказы</title>
     <link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">
 </head>
 
@@ -15,10 +15,10 @@
             <table class="table col-md-8">
                 <thead>
                 <tr>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Assignee</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">ID заказа</th>
+                    <th scope="col">Заказчик</th>
+                    <th scope="col">Сотрудник</th>
+                    <th scope="col">Статус</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,7 +34,7 @@
                     </div>
                     <td th:text="${order.getStatus()}">Status</td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/orders/{id}(id=${order.getId().getId()})}">Details</a>
+                        <a class="btn btn-primary" th:href="@{/orders/{id}(id=${order.getId().getId()})}">Подробнее</a>
                     </td>
                 </tr>
                 </tbody>

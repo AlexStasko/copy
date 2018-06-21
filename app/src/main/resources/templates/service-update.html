@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: header(~{::title},~{})">
+    <title>Заказ</title>
+    <!--<link rel="stylesheet" href="/static/css/signin.css" th:href="@{/css/signin.css}">-->
+</head>
+
+<body th:replace="common::bootstrap(~{::div})">
+<div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
+
+    <div th:replace="header-component :: header"/>
+
+    <main class="col-md-4 offset-md-2">
+        <div th:if="${message}">
+            <p class="alert alert-success" th:text="${message}"/>
+        </div>
+        <h2>Назначте оборудование</h2>
+        <h3 th:if="${filename}" th:text="${filename}"/>
+        <form th:action="@{/orders/{orderId}/{serviceId}/save(orderId=${orderId},serviceId=${serviceId})}" th:object="${service}" th:method="post">
+
+            <input type="text" class="invisible" name="serviceId" id="serviceId" th:value="${serviceId}">
+            <input type="text" class="invisible" name="orderId" id="orderId" th:value="${orderId}">
+            <div>
+                <label for="equipment">Оборудование</label>
+                <select id="equipment" class="form-control" th:field="*{equipment}">
+                    <option th:value="null" th:text="'Не назначено'" selected>Not assigned</option>
+                    <option th:each="equipment : ${equipments}" th:value="${equipment.getName()}" th:text="${equipment.getName()}">1</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </main>
+
+    <div th:replace="footer-component::footer"></div>
+</div>
+
+
+</body>
+</html>

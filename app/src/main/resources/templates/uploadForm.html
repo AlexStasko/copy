@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: header(~{::title},~{})">
-    <title>Upload file</title>
+    <title>Загрузка документа</title>
 </head>
 <body th:replace="common::bootstrap(~{::div})">
 <div class="cover-container d-flex w-100 h-100 p-1 mx-auto flex-column">
@@ -17,10 +17,10 @@
             <form method="POST" enctype="multipart/form-data" th:action="@{/upload}">
                 <input type="text" class="invisible" th:value="${orderId}" name="orderId" id="orderId"/>
                 <div class="form-group">
-                    <label for="file">File to upload:</label>
+                    <label for="file">Документ для загрузки:</label>
                     <input class="file-input" type="file" name="file" id="file"/>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Upload"/>
+                <input class="btn btn-primary" type="submit" value="Загрузить"/>
             </form>
         </div>
     </main>
