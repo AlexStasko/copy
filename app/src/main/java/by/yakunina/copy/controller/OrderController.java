@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class OrderController {
         Customer customer = customerService.findCustomer(account.getUserId());
         LOGGER.info("User [{}] tries to create order", customer);
         order.setCustomer(customer);
-        order.setStatus("В ожидании обработки");
+        order.setStatus("в режиме создания");
         EntityId id = orderService.createOrder(order);
 
         model.addAttribute("orderId", id.getId());
@@ -107,6 +108,11 @@ public class OrderController {
         Employee employee = employeeService.findEmployee(orderForm.getEmployeeId());
         order.setEmployee(employee);
         order.setStatus(orderForm.getStatus());
+        if (orderForm.getStatus().equals("Выполнен") && (order.getExecutionDate() == null)) {
+            order.setExecutionDate(LocalDate.now());
+        } else if (orderForm.getStatus().equals("Выдан") && (order.getDeliveryDate() == null)) {
+            order.setDeliveryDate(LocalDate.now());
+        }
         orderService.update(order);
 
         return "redirect:/orders/" + orderId;

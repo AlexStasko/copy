@@ -27,7 +27,7 @@
                     <th>Сотрудник</th>
                     <td>
                         <select class="form-control" th:field="*{employeeId}">
-                            <option th:value="${order.getEmployee().getId().getId()}" th:text="${order.getEmployee().getName()}" selected>Not assigned</option>
+                            <option th:value="${order.getEmployee().getId().getId()}" th:text="${order.getEmployee().getName()} + ' ' + ${order.getEmployee().getLastName()}" selected>Not assigned</option>
                             <option th:each="employee : ${employees}" th:value="${employee.getId().getId()}" th:text="${employee.getName()} + ' ' + ${employee.getLastName()}">1</option>
                         </select>
                     </td>
@@ -46,9 +46,9 @@
                     <td>
                         <select class="form-control" th:field="*{status}">
                             <option th:value="${order.getStatus()}" th:text="${order.getStatus()}" selected>Not assigned</option>
-                            <option th:value="'Ожидание обработки'" th:text="'Ожидание обработки'">1</option>
                             <option th:value="'В процессе выполнения'" th:text="'В процессе выполнения'">1</option>
-                            <option th:value="'Готов'" th:text="'Готов'">1</option>
+                            <option th:value="'Выполнен'" th:text="'Выполнен'">1</option>
+                            <option th:value="'Выдан'" th:text="'Выдан'">1</option>
                         </select>
                     </td>
                 </tr>

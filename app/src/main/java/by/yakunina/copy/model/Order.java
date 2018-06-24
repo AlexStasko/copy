@@ -5,6 +5,7 @@ import by.yakunina.copy.model.support.Identifiable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,9 @@ public class Order implements Identifiable {
     private Customer customer;
     private Employee employee;
     private String status;
+    private LocalDate createDate;
+    private LocalDate executionDate;
+    private LocalDate deliveryDate;
     private List<Service> services;
 
     public Order() {
@@ -22,6 +26,9 @@ public class Order implements Identifiable {
         this.customer = null;
         this.employee = null;
         this.status = null;
+        this.createDate = null;
+        this.executionDate = null;
+        this.deliveryDate = null;
         this.services = new ArrayList<>();
     }
 
@@ -64,6 +71,30 @@ public class Order implements Identifiable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDate createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDate getExecutionDate() {
+        return executionDate;
+    }
+
+    public void setExecutionDate(LocalDate executionDate) {
+        this.executionDate = executionDate;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     @Override

@@ -11,11 +11,12 @@
     <div th:replace="header-component :: header"/>
 
     <main class="col-md-6 offset-md-2">
-        <p>Хотите загрузить еще один файл для печати?</p>
+
         <form th:action="@{/orders/continue}" th:method="post">
             <input type="text" class="invisible" name="orderId" id="orderId" th:value="${orderId}">
+            <p>Хотите загрузить еще один файл для печати?</p>
             <input type="submit" class="btn btn-primary btn-lg active" th:value="Да"/>
-            <a th:href="@{/service/${orderId}/save}" class="btn btn-secondary btn-lg active" role="button"
+            <a th:href="@{/service/{id}/save(id=${orderId})}" class="btn btn-secondary btn-lg active" role="button"
                aria-pressed="true">Нет</a>
         </form>
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 
 @Controller
 public class ServiceController {
@@ -60,6 +61,10 @@ public class ServiceController {
     @GetMapping("/service/{orderId}/save")
     public String saveOrder(@PathVariable("orderId") String orderId) {
         LOGGER.info("attempt to save order with id [{}]", orderId);
+        Order order = orderService.findOrder(orderId);
+        order.setStatus("Оформлен");
+        order.setCreateDate(LocalDate.now());
+        orderService.update(order);
         return "redirect:/";
     }
 

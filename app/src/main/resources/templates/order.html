@@ -35,6 +35,18 @@
                 <th>Статус</th>
                 <td th:text="${order.getStatus()}">Status</td>
             </tr>
+            <tr th:if="${order.getCreateDate()}">
+                <th>Дата создания заказа</th>
+                <td th:text="${order.getCreateDate()}">Status</td>
+            </tr>
+            <tr th:if="${order.getExecutionDate()}">
+                <th>Дата выполнения заказа</th>
+                <td th:text="${order.getExecutionDate()}">Status</td>
+            </tr>
+            <tr th:if="${order.getDeliveryDate()}">
+                <th>Дата выдачи заказа</th>
+                <td th:text="${order.getDeliveryDate()}">Status</td>
+            </tr>
             </tbody>
         </table>
         <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" th:href="@{/orders/{id}/edit(id=${order.getId().getId()})}">Редактировать заказ</a>
